@@ -33,3 +33,22 @@ completion = client.chat.completions.create(
 )
 
 print(completion.choices[0].message.content)
+
+
+
+
+
+"""
+
+tratar dataset
+
+treinar modelo
+
+LLM que pega no score previsto e na descrição do jogo, e tenta criar uma lista de pontos fortes e fracos
+
+
+
+
+
+
+"""
