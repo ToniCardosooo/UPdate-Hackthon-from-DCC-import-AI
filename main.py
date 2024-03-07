@@ -54,7 +54,7 @@ def index():
 @app.route('/game/<id>')
 def get_game(id):
     global df
-    df = pd.read_csv('andre.csv')
+    df = pd.read_csv('empty.csv')
     url = 'https://api.igdb.com/v4/games/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
     myobj = f'fields name, genres, game_modes, platforms,summary,rating; where id = {id};'
