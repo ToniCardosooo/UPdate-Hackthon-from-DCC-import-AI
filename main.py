@@ -10,7 +10,7 @@ from xgb import generate_model
 
 generate_model()
 df = pd.read_csv("toni.csv")
-df_emb = df.head(1000)
+df_emb = df.head(2)
 set_embeddings(df_emb)
 
 game_modes_look_up = {1: 'Single player', 2: 'Multiplayer', 3: 'Co-operative', 4: 'Split screen', 5: 'Massively Multiplayer Online (MMO)', 6: 'Battle Royale'}
@@ -80,7 +80,7 @@ def get_game(id):
         #em df está o input pra barbara
         # ml_output da barbara 
         df = df.drop(['Unnamed: 0.1', 'rating'], axis=1)
-        print(df)
+        #print(df)
         
         with open("model.pkl","rb") as file:
             model = pickle.load(file)
@@ -92,11 +92,14 @@ def get_game(id):
         df = pca.transform(df)
         ml_output = model.predict(df)
 
+        print(ml_output)
         if ('summary' in i.keys())  and ('name' in i.keys()):
             name = i['name']
             summary = i['summary']
             rating = str(ml_output)
             ai_review = generate_review(name, summary, rating)
+            print(ai_review)
+            print(i["rating"])
             return render_template("gamepage.html", ml_output=ml_output, ai_review=ai_review)
 
     elif ('summary' in i.keys())  and ('name' in i.keys()) and ('rating' in i.keys()):
