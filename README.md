@@ -18,7 +18,10 @@ We were tasked with creating an AI service/agent that leverages LLMs to process,
 
 ### The Pipeline
 
-To do this, we started by 
+To do this, we start by using a Twitch API Key in order to have access to the data we will be using through queries. This extracted data was then engineered into a dataset and fed onto an XGBoost machine learning algorythm in order to learn how to rate a new game.
+On the other hand, some other part of our data goes to an embedder, in order help the LLM to produce its answer. We utilize the embedder to encode the context of some lexicalgraphic data, so that we know which pre-stored context might be useful to synthesize the LLM's answer.
+Finally, with all of this information being within our knowledge, any new game that enters the platform before the next report will be refined in order for the machine learning algorythm to output a possible rating for the game and the LLM to consequently give an example review that gives some insight into the positives and negatives of said game. 
+
 
 ### Files
 
