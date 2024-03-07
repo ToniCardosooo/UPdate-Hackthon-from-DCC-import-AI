@@ -1,5 +1,6 @@
 from openai import OpenAI
 from scipy import spatial
+import os
 
 CLIENT = OpenAI()
 GPT_MODEL = "gpt-3.5-turbo"
@@ -27,12 +28,27 @@ def get_embedding(text, emb_model="text-embedding-3-small"):
 
 def set_embeddings(df, emb_model="text-embedding-3-small"):
     global TEXTS_EMBEDDED, EMBEDDINGS
-    TEXTS_EMBEDDED = []
-    EMBEDDINGS = []
-    for i in range(df.shape[0]):
-        text = f"{df.loc[i,'name']} | {df.loc[i,'genres']} | {df.loc[i,'summary']}"
-        TEXTS_EMBEDDED.append(text)
-        EMBEDDINGS.append(get_embedding(text, emb_model))
+    if "emb.pkl" not in os.listdir():
+        TEXTS_EMBEDDED = []
+        EMBEDDINGS = []
+        for i in range(df.shape[0]):
+            text = f"{df.loc[i,'name']} | {df.loc[i,'genres']} | {df.loc[i,'summary']}"
+            TEXTS_EMBEDDED.append(text)
+            EMBEDDINGS.append(get_embedding(text, emb_model))
+        with open("emb.pkl", "wb") as emb:
+            pickle.dump(EMBEDDINGS, emb)
+            emb.close()
+        with open("text_emb.pkl", "wb") as text_emb:
+            pickle.dump(TEXTS_EMBEDDED, text_emb)
+            text_emb.close()
+    else:
+        with open("emb.pkl", "rb") as emb:
+            EMBEDDINGS = pickle.load(emb)
+            emb.close()
+        with open("text_emb.pkl", "rb") as text_emb:
+            TEXTS_EMBEDDED = pickle.load(text_emb)
+            text_emb.close()
+
 
 def get_prompt_context_strings(game_name, game_summary, predicted_rating, emb_model="text-embedding-3-small", relatedness_fn=lambda x, y: 1 - spatial.distance.cosine(x, y), top_n=5):
     user_prompt = f"{game_name} | {game_summary} | {predicted_rating}"
@@ -70,6 +86,6 @@ import pickle
 
 if __name__ == "__main__":
     df = pd.read_csv("toni.csv")
-    df_emb = df.head(5)
+    df_emb = df.head(1000)
     set_embeddings(df_emb)
     generate_review("Grand Theft Auto 5", "Action game with heists", "90")
