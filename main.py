@@ -48,19 +48,13 @@ def index():
     myobj = 'fields name, rating;limit 10;where rating>80;sort rating desc;'
 
     x = requests.post(url,headers=headers,data=myobj)
-
     list_of_best = x.json()
-
-
-    #icons da ps5, pc, xbox 
-    # /platform/167
-    # /platform/169
-    # /platform/6
-
-    return render_template('index.html')
+    return render_template('index.html', latest=list_of_latest, best=list_of_best)
 
 @app.route('/game/<id>')
 def get_game(id):
+    global df
+    df = pd.read_csv('andre.csv')
     url = 'https://api.igdb.com/v4/games/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
     myobj = f'fields name, genres, game_modes, platforms,summary,rating; where id = {id};'
@@ -69,13 +63,21 @@ def get_game(id):
     i = x.json()[0]
 
     if ('genres' in i.keys())  and ('game_modes' in i.keys()) and ('platforms' in i.keys()):
-        global df
+        gen_list='Genres: '
+        gm_list='Game Modes: '
+        plat_list='Platforms: '
         for gen in i['genres']:
             df[genres_look_up[gen]] = [1]
+            gen_list+=genres_look_up[gen]+', '
+        gen_list=gen_list[:-2]
         for gm in i['game_modes']:
             df[game_modes_look_up[gm]] = [1]
+            gm_list+=game_modes_look_up[gm]+', '
+        gm_list=gm_list[:-2]
         for plat in i['platforms']:
             df[platforms_look_up[plat]] = [1]
+            plat_list+=platforms_look_up[plat]+', '
+        plat_list=plat_list[:-2]
     
         #em df está o input pra barbara
         # ml_output da barbara 
@@ -99,8 +101,7 @@ def get_game(id):
             rating = str(ml_output)
             ai_review = generate_review(name, summary, rating)
             print(ai_review)
-            print(i["rating"])
-            return render_template("gamepage.html", ml_output=ml_output, ai_review=ai_review)
+            return render_template("gamepage.html", ml_output=ml_output, ai_review=ai_review, name=name,summary=summary,genre=gen_list,game_mode=gm_list,platforms=plat_list)
 
     elif ('summary' in i.keys())  and ('name' in i.keys()) and ('rating' in i.keys()):
         name = i['name']
@@ -112,13 +113,25 @@ def get_game(id):
     return render_template("gamepage.html", ml_output="Not Calculated", ai_review="Not Calculated")
 
 @app.route('/platform/<id>')
-def get_plat():
+def get_plat(id):
     url = 'https://api.igdb.com/v4/games/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
-    myobj = f'fields name; where platform = [{id}];limit 50; sort rating desc;'
+    myobj = f'fields name; where platforms = [{id}];limit 30; sort rating desc;'
     x = requests.post(url,headers=headers,data=myobj)
     list_of_games = x.json()
 
+    return render_template('platform.html', games=list_of_games)
+
+
+@app.route('/search/<expr>')
+def get_search(expr):
+    url = 'https://api.igdb.com/v4/games/'
+    headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
+    myobj = f'search "{expr}"; fields name;limit 20;'
+    x = requests.post(url,headers=headers,data=myobj)
+    list_of_games = x.json()
+
+    return render_template('search.html', games=list_of_games)
 
 
 if __name__ == "__main__":

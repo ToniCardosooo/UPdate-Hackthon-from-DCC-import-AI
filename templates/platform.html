@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}from DCC import AI{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <h2>GAMES</h2>
+  <!-- this bullet list has to be generated dynamically -->
+  <ul>
+
+    {%for game in games %}
+    <li><a href="/game/{{game['id']}}">{{game['name']}}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+
+{% endblock %}
