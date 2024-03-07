@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}from DCC import AI{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <h2>GAMES</h2>
+  <!-- this bullet list has to be generated dynamically -->
+  <ul>
+    <li><a href="/game/{{games[0]['id']}}">{{games[0]['name']}}</a></li>
+    <li><a href="/game/{{games[1]['id']}}">{{games[1]['name']}}</a></li>
+    <li><a href="/game/{{games[2]['id']}}">{{games[2]['name']}}</a></li>
+    <li><a href="/game/{{games[3]['id']}}">{{games[3]['name']}}</a></li>
+    <li><a href="/game/{{games[4]['id']}}">{{games[4]['name']}}</a></li>
+    <li><a href="/game/{{games[5]['id']}}">{{games[5]['name']}}</a></li>
+    <li><a href="/game/{{games[6]['id']}}">{{games[6]['name']}}</a></li>
+    <li><a href="/game/{{games[7]['id']}}">{{games[7]['name']}}</a></li>
+    <li><a href="/game/{{games[8]['id']}}">{{games[8]['name']}}</a></li>
+    <li><a href="/game/{{games[9]['id']}}">{{games[9]['name']}}</a></li>
+    <li><a href="/game/{{games[10]['id']}}">{{games[10]['name']}}</a></li>
+    <li><a href="/game/{{games[11]['id']}}">{{games[11]['name']}}</a></li>
+    <li><a href="/game/{{games[12]['id']}}">{{games[12]['name']}}</a></li>
+    <li><a href="/game/{{games[13]['id']}}">{{games[13]['name']}}</a></li>
+    <li><a href="/game/{{games[14]['id']}}">{{games[14]['name']}}</a></li>
+    <li><a href="/game/{{games[15]['id']}}">{{games[15]['name']}}</a></li>
+    <li><a href="/game/{{games[16]['id']}}">{{games[16]['name']}}</a></li>
+    <li><a href="/game/{{games[17]['id']}}">{{games[17]['name']}}</a></li>
+    <li><a href="/game/{{games[18]['id']}}">{{games[18]['name']}}</a></li>
+    <li><a href="/game/{{games[19]['id']}}">{{games[19]['name']}}</a></li>
+    <li><a href="/game/{{games[20]['id']}}">{{games[20]['name']}}</a></li>
+    <li><a href="/game/{{games[21]['id']}}">{{games[21]['name']}}</a></li>
+    <li><a href="/game/{{games[22]['id']}}">{{games[22]['name']}}</a></li>
+    <li><a href="/game/{{games[23]['id']}}">{{games[23]['name']}}</a></li>
+    <li><a href="/game/{{games[24]['id']}}">{{games[24]['name']}}</a></li>
+    <li><a href="/game/{{games[25]['id']}}">{{games[25]['name']}}</a></li>
+    <li><a href="/game/{{games[26]['id']}}">{{games[26]['name']}}</a></li>
+    <li><a href="/game/{{games[27]['id']}}">{{games[27]['name']}}</a></li>
+    <li><a href="/game/{{games[28]['id']}}">{{games[28]['name']}}</a></li>
+    <li><a href="/game/{{games[29]['id']}}">{{games[29]['name']}}</a></li>
+
+  </ul>
+</div>
+
+
+
+{% endblock %}
