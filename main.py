@@ -35,10 +35,24 @@ def index():
 
     url = 'https://api.igdb.com/v4/release_dates/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
-    myobj = f'fields game.rating,date, game.name;where date>{time_time};sort date desc;limit 10;'
+    myobj = f'fields game.rating,date, game.name;where date>{time_time};sort date desc;limit 5;'
+    x = requests.post(url,headers=headers,data=myobj)
+    list_of_latest = x.json()
+
+    url = 'https://api.igdb.com/v4/games'
+    headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
+    myobj = 'fields name, rating;limit 10;where rating>80;sort rating desc;'
+
     x = requests.post(url,headers=headers,data=myobj)
 
-    print(x.json())
+    list_of_best = x.json()
+
+
+    #icons da ps5, pc, xbox 
+    # /platform/167
+    # /platform/169
+    # /platform/6
+
     return render_template('index.html')
 
 @app.route('/game/<id>')
@@ -88,6 +102,15 @@ def get_game():
         return render_template("gamepage.html", ai_review=ai_review)
     # else
     return render_template("gamepage.html")
+
+@app.route('/platform/<id>')
+def get_plat():
+    url = 'https://api.igdb.com/v4/games/'
+    headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
+    myobj = f'fields name; where platform = [{id}];limit 50; sort rating desc;'
+    x = requests.post(url,headers=headers,data=myobj)
+    list_of_games = x.json()
+
 
 
 if __name__ == "__main__":
