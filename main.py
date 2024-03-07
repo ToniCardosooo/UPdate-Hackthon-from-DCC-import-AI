@@ -107,9 +107,9 @@ def get_game(id):
         summary = i['summary']
         rating = str(i['rating'])
         ai_review = generate_review(name, summary, rating)
-        return render_template("gamepage.html", ai_review=ai_review)
+        return render_template("gamepage.html", ml_output="Not Calculated", ai_review=ai_review)
     # else
-    return render_template("gamepage.html")
+    return render_template("gamepage.html", ml_output="Not Calculated", ai_review="Not Calculated")
 
 @app.route('/platform/<id>')
 def get_plat():
