@@ -13,6 +13,16 @@ body {
     min-height: 100vh;
 }
 
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgb(40, 32, 55);
+    box-shadow: 0 2px 16px hsla(273, 32%, 8%, 0.3);
+    z-index: var(100);
+}
+
 h1,
 h2,
 h3,
