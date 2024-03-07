@@ -4,6 +4,7 @@ import json
 import datetime
 import time
 import pandas as pd
+from llm import generate_review
 
 
 
@@ -45,7 +46,6 @@ def get_game():
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
     myobj = f'fields name, genres, game_modes, platforms,summary,rating; where id = {id};'
 
-
     x = requests.post(url,headers=headers,data=myobj)
     i = x.json()[0]
 
@@ -58,19 +58,22 @@ def get_game():
             df[platforms_look_up[plat]] = [1]
     
     #em df está o input pra barbara
-    # output da barbara 
+    # ml_output da barbara 
         if ('summary' in i.keys())  and ('name' in i.keys()):
             name = i['name']
-            summary =i['summary']
-            rating = output
-            #PASSAS APO TONI 
-            pass
+            summary = i['summary']
+            rating = str(ml_output)
+            ai_review = generate_review(name, summary, rating)
+            return render_template("gamepage.html", ml_output=ml_output, ai_review=ai_review)
+
     elif ('summary' in i.keys())  and ('name' in i.keys()) and ('rating' in i.keys()):
         name = i['name']
-        summary =i['summary']
-        rating = i['rating']
-        #PASSAS APO TONI
-        pass
+        summary = i['summary']
+        rating = str(i['rating'])
+        ai_review = generate_review(name, summary, rating)
+        return render_template("gamepage.html", ai_review=ai_review)
+    # else
+    return render_template("gamepage.html")
 
 
 if __name__ == "__main__":
