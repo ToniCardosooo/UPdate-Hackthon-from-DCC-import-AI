@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}from DCC import AI{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+<div>
+  <h2>LATEST RELEASES</h2>
+  <!-- this bullet list has to be generated dynamically -->
+  <ul>
+    <li>Game A</li>
+    <li>Game B</li>
+    <li>Game C</li>
+  </ul>
+</div>
+
+<div>
+  <h2>GENRES</h2>
+  <ul>
+    <li>FPS</li>
+    <li>RPG</li>
+    <li>PVE</li>
+  </ul>
+</div>
+
+<div>
+  <h2>PLATFORM</h2>
+  <ul>
+    <li>PLAYSTATION 5</li>
+    <li>XBOX</li>
+    <li>PC</li>
+  </ul>
+</div>
+
+
+{% endblock %}
