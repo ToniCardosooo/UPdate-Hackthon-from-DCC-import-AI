@@ -5,9 +5,13 @@ import datetime
 import time
 import pickle
 import pandas as pd
-from llm import generate_review
+from llm import generate_review, set_embeddings
+from xgb import generate_model
 
-
+generate_model()
+df = pd.read_csv("toni.csv")
+df_emb = df.head(1000)
+set_embeddings(df_emb)
 
 game_modes_look_up = {1: 'Single player', 2: 'Multiplayer', 3: 'Co-operative', 4: 'Split screen', 5: 'Massively Multiplayer Online (MMO)', 6: 'Battle Royale'}
 
@@ -35,7 +39,7 @@ def index():
 
     url = 'https://api.igdb.com/v4/release_dates/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
-    myobj = f'fields game.rating,date, game.name;where date>{time_time};sort date desc;limit 5;'
+    myobj = f'fields game.name;where date>{time_time};sort date desc;limit 5;'
     x = requests.post(url,headers=headers,data=myobj)
     list_of_latest = x.json()
 
@@ -56,7 +60,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/game/<id>')
-def get_game():
+def get_game(id):
     url = 'https://api.igdb.com/v4/games/'
     headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
     myobj = f'fields name, genres, game_modes, platforms,summary,rating; where id = {id};'
@@ -65,6 +69,7 @@ def get_game():
     i = x.json()[0]
 
     if ('genres' in i.keys())  and ('game_modes' in i.keys()) and ('platforms' in i.keys()):
+        global df
         for gen in i['genres']:
             df[genres_look_up[gen]] = [1]
         for gm in i['game_modes']:
