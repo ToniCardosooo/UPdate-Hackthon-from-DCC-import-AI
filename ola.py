@@ -4,6 +4,7 @@ from urllib.request import urlopen
 import json
 import datetime
 import time
+import pickle
 import pandas as pd
 
 df = pd.read_csv('andre.csv')
@@ -40,11 +41,25 @@ if ('genres' in i.keys())  and ('game_modes' in i.keys()) and ('platforms' in i.
     for plat in i['platforms']:
         df[platforms_look_up[plat]] = [1]
     #EM df está o input pra barbara
+    df = df.drop(['Unnamed: 0.1', 'rating'], axis=1)
+    print(df)
+    
     # output da barbara 
+    with open("model.pkl","rb") as file:
+        model = pickle.load(file)
+        file.close()
+    with open("pca.pkl","rb") as file:
+        pca = pickle.load(file)
+        file.close()
+
+    df = pca.transform(df)
+    ml_output = model.predict(df)
+    print(ml_output)
     if ('summary' in i.keys())  and ('name' in i.keys()):
         name = i['name']
         summary =i['summary']
-        rating = ouput
+        rating = output
+        
         #PASSAS APO TONI 
         pass
 elif ('summary' in i.keys())  and ('name' in i.keys()) and ('rating' in i.keys()):

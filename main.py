@@ -3,6 +3,7 @@ from urllib.request import urlopen
 import json
 import datetime
 import time
+import pickle
 import pandas as pd
 from llm import generate_review
 
@@ -57,8 +58,21 @@ def get_game():
         for plat in i['platforms']:
             df[platforms_look_up[plat]] = [1]
     
-    #em df está o input pra barbara
-    # ml_output da barbara 
+        #em df está o input pra barbara
+        # ml_output da barbara 
+        df = df.drop(['Unnamed: 0.1', 'rating'], axis=1)
+        print(df)
+        
+        with open("model.pkl","rb") as file:
+            model = pickle.load(file)
+            file.close()
+        with open("pca.pkl","rb") as file:
+            pca = pickle.load(file)
+            file.close()
+
+        df = pca.transform(df)
+        ml_output = model.predict(df)
+
         if ('summary' in i.keys())  and ('name' in i.keys()):
             name = i['name']
             summary = i['summary']
