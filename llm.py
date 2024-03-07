@@ -80,6 +80,7 @@ def generate_review(game_name, game_summary, predicted_rating, gpt_model="gpt-3.
         ]
     )
     print(llm_output.choices[0].message.content)
+    return llm_output.choices[0].message.content
 
 import pandas as pd
 import pickle
