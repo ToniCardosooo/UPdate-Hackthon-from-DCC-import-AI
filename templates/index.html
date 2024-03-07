@@ -7,30 +7,27 @@
 {% block content %}
 
 <div>
+  <form name="mid" action="javascript:window.open('/search/'+document.forms['mid'].elements['expr'].value,'_self')">
+    Search for Game: <input value="" name="expr" type="text"/><input type="submit" value="Go!"/>
+ </form>
+</div>
+
+<div>
   <h2>LATEST RELEASES</h2>
   <!-- this bullet list has to be generated dynamically -->
   <ul>
-    <li><a href="/game/{{latest[0]['game']['id']}}">{{latest[0]['game']['name']}}</a></li>
-    <li><a href="/game/{{latest[1]['game']['id']}}">{{latest[1]['game']['name']}}</a></li>
-    <li><a href="/game/{{latest[2]['game']['id']}}">{{latest[2]['game']['name']}}</a></li>
-    <li><a href="/game/{{latest[3]['game']['id']}}">{{latest[3]['game']['name']}}</a></li>
-    <li><a href="/game/{{latest[4]['game']['id']}}">{{latest[4]['game']['name']}}</a></li>
+    {%for l in latest %}
+    <li><a href="/game/{{l['game']['id']}}">{{l['game']['name']}}</a></li>
+    {% endfor %}
   </ul>
 </div>
 
 <div>
   <h2>BEST</h2>
   <ul>
-    <li><a href="/game/{{best[0]['id']}}">{{best[0]['name']}}</a></li>
-    <li><a href="/game/{{best[1]['id']}}">{{best[1]['name']}}</a></li>
-    <li><a href="/game/{{best[2]['id']}}">{{best[2]['name']}}</a></li>
-    <li><a href="/game/{{best[3]['id']}}">{{best[3]['name']}}</a></li>
-    <li><a href="/game/{{best[4]['id']}}">{{best[4]['name']}}</a></li>
-    <li><a href="/game/{{best[5]['id']}}">{{best[5]['name']}}</a></li>
-    <li><a href="/game/{{best[6]['id']}}">{{best[6]['name']}}</a></li>
-    <li><a href="/game/{{best[7]['id']}}">{{best[7]['name']}}</a></li>
-    <li><a href="/game/{{best[8]['id']}}">{{best[8]['name']}}</a></li>
-    <li><a href="/game/{{best[9]['id']}}">{{best[9]['name']}}</a></li>
+    {%for b in best %}
+    <li><a href="/game/{{b['id']}}">{{b['name']}}</a></li>
+    {% endfor %}
   </ul>
 </div>
 

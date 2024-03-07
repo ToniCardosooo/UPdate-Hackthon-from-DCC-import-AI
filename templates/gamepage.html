@@ -2,20 +2,20 @@
 
 {% block content %}
 
-
+<h1>Title: {{name}}</h1>
 <div>
-    <h2>{{name}}</h2>
-    <h2>{{genre}}</h2>
-    <h2>{{game_mode}}</h2>
-    <h2>{{platforms}}</h2>
-    <h2>{{summary}}</h2>
-    <h2>{{rating}}</h2>
-    <div>
-        Our own rating: {{ml_output}}
-    </div>
-    <div>
+    
+    <h3>{{genre}}</h3>
+    <h3>{{game_mode}}</h3>
+    <h3>{{platforms}}</h3>
+    <h3>{{summary}}</h3>
+    <h3>{{rating}}</h3>
+    <p>
+        <b>Our own rating: {{ml_output}}</b>
+    </p>
+    <p>
         Our own review: {{ai_review}}
-    </div>
+    </p>
 </div>
 
 {% endblock %}

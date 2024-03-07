@@ -123,6 +123,16 @@ def get_plat(id):
     return render_template('platform.html', games=list_of_games)
 
 
+@app.route('/search/<expr>')
+def get_search(expr):
+    url = 'https://api.igdb.com/v4/games/'
+    headers = {'Client-ID': '4l9k9i1qqdn7ih54tswtrrtr37tdq6', 'Authorization': 'Bearer i1bovfro1q1rfoud62vv8pzlz4map3'}
+    myobj = f'search "{expr}"; fields name;limit 20;'
+    x = requests.post(url,headers=headers,data=myobj)
+    list_of_games = x.json()
+
+    return render_template('search.html', games=list_of_games)
+
 
 if __name__ == "__main__":
     app.run()
