@@ -9,7 +9,7 @@ from llm import generate_review, set_embeddings
 from xgb import generate_model
 
 generate_model()
-df = pd.read_csv("toni.csv")
+df = pd.read_csv("emb_data.csv")
 df_emb = df.head(2)
 set_embeddings(df_emb)
 
@@ -23,7 +23,7 @@ platforms_look_up = {158: 'Commodore CDTV', 339: 'Sega Pico', 8: 'PlayStation 2'
 67: 'Intellivision', 73: 'BlackBerry OS', 307: 'Game & Watch', 111: 'Imlac PDS-1', 118: 'FM Towns', 131: 'Nintendo PlayStation', 157: 'NEC PC-6000 Series', 152: 'FM-7', 20: 'Nintendo DS', 63: 'Atari ST/STE', 46: 'PlayStation Vita', 48: 'PlayStation 4', 61: 'Atari Lynx', 93: 'Commodore 16', 21: 'Nintendo GameCube', 42: 'N-Gage', 19: 'Super Nintendo Entertainment System', 374: 'Sharp MZ-2200', 58: 'Super Famicom', 375: 'Epoch Cassette Vision', 388: 'Gear VR', 
 96: 'PDP-10', 137: 'New Nintendo 3DS', 377: 'Plug & Play', 57: 'WonderSwan', 71: 'Commodore VIC-20', 75: 'Apple II', 74: 'Windows Phone', 80: 'Neo Geo AES', 84: 'SG-1000', 161: 'Windows Mixed Reality', 79: 'Neo Geo MVS', 33: 'Game Boy', 376: 'Epoch Super Cassette Vision', 5: 'Wii', 382: 'Intellivision Amico', 167: 'PlayStation 5', 387: 'Oculus Go', 385: 'Oculus Rift', 91: 'Bally Astrocade', 384: 'Oculus Quest', 69: 'BBC Microcomputer System', 55: 'Legacy Mobile Device', 379: 'Game.com', 52: 'Arcade', 170: 'Google Stadia', 3: 'Linux', 72: 'Ouya', 95: 'PDP-1', 151: 'TRS-80 Color Computer', 100: 'Analogue electronics', 166: 'PokÃ©mon mini', 102: 'EDSAC', 104: 'HP 2100', 236: 'Exidy Sorcerer', 103: 'PDP-7', 238: 'DVD Player', 105: 'HP 3000', 106: 'SDS Sigma 7', 164: 'Daydream', 107: 'Call-A-Computer time-shared mainframe computer system', 240: 'Zeebo', 110: 'PLATO', 239: 'Blu-ray Player', 26: 'ZX Spectrum', 274: 'PC-FX', 27: 'MSX', 309: 'Evercade', 372: 'OOParts', 373: 'Sinclair ZX81', 203: 'DUPLICATE Stadia', 380: 'Casio Loopy', 169: 'Xbox Series X|S', 12: 'Xbox 360', 49: 'Xbox One', 7: 'PlayStation', 99: 'Family Computer', 389: 'AirConsole', 29: 'Sega Mega Drive/Genesis', 386: 'Meta Quest 2', 390: 'PlayStation VR2', 16: 'Amiga', 47: 'Virtual Console', 165: 'PlayStation VR', 405: 'Windows Mobile', 406: 'Sinclair QL', 407: 'HyperScan', 408: 'Mega Duck/Cougar Boy', 409: 'Legacy Computer', 410: 'Atari Jaguar CD', 411: 'Handheld Electronic LCD', 412: 'Leapster', 413: 'Leapster Explorer/LeadPad Explorer', 414: 'LeapTV', 415: 'Watara/QuickShot Supervision', 416: 'Nintendo 64DD', 417: 'Palm OS', 438: 'Arduboy', 439: 'V.Smile', 441: 'PocketStation', 471: 'Meta Quest 3', 34: 'Android', 59: 'Atari 2600', 68: 'ColecoVision', 440: 'Visual Memory Unit / Visual Memory System', 473: 'Arcadia 2001', 474: 'Gizmondo', 472: 'visionOS', 4: 
 'Nintendo 64', 475: 'R-Zone', 476: 'Apple Pippin'}
-df = pd.read_csv('andre.csv')
+df = pd.read_csv('empty.csv')
 
 
 from flask import Flask, render_template, request

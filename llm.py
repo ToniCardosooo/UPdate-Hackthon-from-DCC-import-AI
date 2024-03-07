@@ -86,7 +86,7 @@ import pandas as pd
 import pickle
 
 if __name__ == "__main__":
-    df = pd.read_csv("toni.csv")
+    df = pd.read_csv("emb_data.csv")
     df_emb = df.head(1000)
     set_embeddings(df_emb)
     generate_review("Grand Theft Auto 5", "Action game with heists", "90")
